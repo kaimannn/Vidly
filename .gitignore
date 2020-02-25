@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/Vidly/v16
+/Vidly.Web/bin
+/Vidly.Web/obj
+/.vs/Vidly/DesignTimeBuild
