@@ -1,4 +1,4 @@
-﻿@model Customer
+﻿@model NewCustomerViewModel
 @{
     ViewData["Title"] = "New";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,15 +9,19 @@
 @using (Html.BeginForm("Create", "Customers"))
 {
     <div class="form-group">
-        @Html.LabelFor(c => c.FirstName)
-        @Html.TextBoxFor(c => c.FirstName, new { @class = "form-control" })
+        @Html.LabelFor(c => c.Customer.FirstName)
+        @Html.TextBoxFor(c => c.Customer.FirstName, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.LastName)
-        @Html.TextBoxFor(c => c.LastName, new { @class = "form-control" })
+        @Html.LabelFor(c => c.Customer.LastName)
+        @Html.TextBoxFor(c => c.Customer.LastName, new { @class = "form-control" })
     </div>
     <div class="form-group">
-        @Html.CheckBoxFor(c => c.IsSubscribedToNewsletter, new { @class = "form-check" }) Subscribed to Newsletter?
+        @Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsletter, new { @class = "form-check" }) Subscribed to Newsletter?
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.MemberShipTypeId)
+        @Html.DropDownListFor(c => c.Customer.MemberShipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name", "Select Membership Type"), new { @class = "form-control" })
     </div>
 }
 

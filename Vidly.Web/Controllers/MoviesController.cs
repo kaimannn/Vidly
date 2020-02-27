@@ -8,17 +8,17 @@ namespace Vidly.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly IMovieRepository movieRepository;
+        private readonly IMovieRepository _movieRepository;
 
         public MoviesController(IMovieRepository movieRepository)
         {
-            this.movieRepository = movieRepository;
+            _movieRepository = movieRepository;
         }
 
         [Route("movies/details/{id}")]
         public IActionResult Details(int id)
         {
-            var movie = movieRepository.GetMovie(id);
+            var movie = _movieRepository.GetMovie(id);
 
             if (movie == null)
                 return NotFound();
@@ -30,7 +30,7 @@ namespace Vidly.Web.Controllers
         [Route("movies")]
         public IActionResult Index()
         {
-            var movies = movieRepository.GetAllMovies();
+            var movies = _movieRepository.GetAllMovies();
 
             return View(movies);
         }

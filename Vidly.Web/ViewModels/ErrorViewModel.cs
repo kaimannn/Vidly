@@ -1,6 +1,4 @@
-using System;
-
-namespace Vidly.Web.Models
+namespace Vidly.Web.ViewModels
 {
     public class ErrorViewModel
     {

@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Vidly.Web.Repositories;
+using Vidly.Web.ViewModels;
 
 namespace Vidly.Web.Controllers
 {
     public class CustomersController : Controller
     {
-        private readonly ICustomerRepository customerRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IMembershipTypeRepository _membershipTypeRepository;
 
-        public CustomersController(ICustomerRepository customerRepository)
+        public CustomersController(ICustomerRepository customerRepository, IMembershipTypeRepository membershipTypeRepository)
         {
-            this.customerRepository = customerRepository;
+            _customerRepository = customerRepository;
+            _membershipTypeRepository = membershipTypeRepository;
         }
 
         [Route("customers/Details/{id}")]
         public IActionResult Details(int id)
         {
-            var customer = customerRepository.GetCustomer(id);
+            var customer = _customerRepository.GetCustomer(id);
 
             if (customer == null)
                 return NotFound();
@@ -26,13 +29,20 @@ namespace Vidly.Web.Controllers
 
         public IActionResult New()
         {
-            return View();
+            var membershipTypes = _membershipTypeRepository.GetAllMembershipTypes();
+
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
         }
 
         [Route("customers")]
         public IActionResult Index()
         {
-            var customers = customerRepository.GetAllCustomers();
+            var customers = _customerRepository.GetAllCustomers();
 
             return View(customers);
         }

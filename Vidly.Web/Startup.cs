@@ -28,6 +28,7 @@ namespace Vidly.Web
 
             services.AddScoped<ICustomerRepository, MockCustomerRepository>();
             services.AddScoped<IMovieRepository, MockMovieRepository>();
+            services.AddScoped<IMembershipTypeRepository, MockMembershipTypeRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

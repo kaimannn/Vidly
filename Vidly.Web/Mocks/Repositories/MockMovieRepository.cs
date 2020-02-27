@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Vidly.Web.Data;
+using Vidly.Web.Mocks.Enums;
 using Vidly.Web.Models;
 using Vidly.Web.Repositories;
 
@@ -10,13 +9,6 @@ namespace Vidly.Web.Mocks.Repositories
 {
     public class MockMovieRepository : IMovieRepository
     {
-        enum Genres
-        {
-            Comedy = 1,
-            Action = 2,
-            ScienceFiction = 3,
-        }
-
         public Movie GetMovie(int movieId)
         {
             return GetMovies().SingleOrDefault(m => m.Id == movieId);
@@ -27,7 +19,7 @@ namespace Vidly.Web.Mocks.Repositories
             return GetMovies();
         }
 
-        private Movie CreateMovie(int movieId, string movieName, int numInStock, Genres genre)
+        private Movie CreateMovie(int movieId, string movieName, int numInStock, MockGenres genre)
         {
             return new Movie
             {
@@ -49,9 +41,9 @@ namespace Vidly.Web.Mocks.Repositories
         {
             return new List<Movie>
             {
-                CreateMovie(1, "Hangover", 5, Genres.Comedy),
-                CreateMovie(2, "Die Hard", 2, Genres.Action),
-                CreateMovie(3, "Interestellar", 10, Genres.ScienceFiction)
+                CreateMovie(1, "Hangover", 5, MockGenres.Comedy),
+                CreateMovie(2, "Die Hard", 2, MockGenres.Action),
+                CreateMovie(3, "Interestellar", 10, MockGenres.ScienceFiction)
             };
         }
     }
