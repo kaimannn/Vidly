@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Vidly.Web.Data;
+using Vidly.Web.Mocks.Repositories;
 using Vidly.Web.Repositories;
 
 namespace Vidly.Web
@@ -25,8 +26,8 @@ namespace Vidly.Web
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("VidlyDBConnection")));
 
-            services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
-            services.AddScoped<IMovieRepository, SQLMovieRepository>();
+            services.AddScoped<ICustomerRepository, MockCustomerRepository>();
+            services.AddScoped<IMovieRepository, MockMovieRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -61,7 +62,7 @@ namespace Vidly.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Customers}/{action=New}/{id?}");
             });
         }
     }

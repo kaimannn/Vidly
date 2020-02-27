@@ -24,6 +24,11 @@ namespace Vidly.Web.Controllers
             return View(customer);
         }
 
+        public IActionResult New()
+        {
+            return View();
+        }
+
         [Route("customers")]
         public IActionResult Index()
         {
