@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Vidly.Web.Models;
 
 namespace Vidly.Data.Migrations
 {

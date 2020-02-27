@@ -26,6 +26,7 @@ namespace Vidly.Web
                 options.UseSqlServer(_config.GetConnectionString("VidlyDBConnection")));
 
             services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
+            services.AddScoped<IMovieRepository, SQLMovieRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();

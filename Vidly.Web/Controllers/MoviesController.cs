@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using Vidly.Web.Models;
+using Vidly.Web.Repositories;
 
 namespace Vidly.Web.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly IMovieRepository movieRepository;
+
+        public MoviesController(IMovieRepository movieRepository)
+        {
+            this.movieRepository = movieRepository;
+        }
+
         [Route("movies/details/{id}")]
         public IActionResult Details(int id)
         {
-            var movies = new List<Movie>
-            {
-                new Movie {Id = 1, Name = "Shrek!"},
-                new Movie {Id = 2, Name = "Matrix"},
-                new Movie {Id = 3, Name = "Die Hard"},
-            };
-
-            var movie = movies.SingleOrDefault(m => m.Id == id);
+            var movie = movieRepository.GetMovie(id);
 
             if (movie == null)
                 return NotFound();
@@ -29,12 +30,7 @@ namespace Vidly.Web.Controllers
         [Route("movies")]
         public IActionResult Index()
         {
-            var movies = new List<Movie>
-            {
-                new Movie {Id = 1, Name = "Shrek!"},
-                new Movie {Id = 2, Name = "Matrix"},
-                new Movie {Id = 3, Name = "Die Hard"},
-            };
+            var movies = movieRepository.GetAllMovies();
 
             return View(movies);
         }
