@@ -25,6 +25,7 @@ namespace Vidly.Web.Models
         public byte MemberShipTypeId { get; set; }
 
         [Display(Name = "Date Of Birth")]
+        [Min18YearsIfAMember]
         public DateTime? Birthdate { get; set; }
     }
 }

@@ -9,14 +9,32 @@ namespace Vidly.Web.Mocks.Repositories
 {
     public partial class MockCustomerRepository : ICustomerRepository
     {
+        private List<Customer> _customersList = null;
+        private readonly IMembershipTypeRepository _membershipTypeRepository;
+
+        public MockCustomerRepository(IMembershipTypeRepository membershipTypeRepository)
+        {
+            InitializeCustomersList();
+            _membershipTypeRepository = membershipTypeRepository;
+        }
+
+        private void InitializeCustomersList()
+        {
+            _customersList = new List<Customer>
+            {
+                CreateCustomer(1, "Seleni", "Ferrari", MockMemberShipTypes.PayAsYouGo),
+                CreateCustomer(2, "Laia", "Aguayo", MockMemberShipTypes.Monthly),
+            };
+        }
+
         public Customer GetCustomer(int customerId)
         {
-            return GetCustomers().SingleOrDefault(m => m.Id == customerId);
+            return _customersList.SingleOrDefault(m => m.Id == customerId);
         }
 
         public IEnumerable<Customer> GetAllCustomers()
         {
-            return GetCustomers();
+            return _customersList;
         }
 
         private Customer CreateCustomer(int customerId, string customerFirstName, string customerLastName, MockMemberShipTypes membershipType)
@@ -36,13 +54,34 @@ namespace Vidly.Web.Mocks.Repositories
             };
         }
 
-        private IEnumerable<Customer> GetCustomers()
+
+        public void AddCustomer(Customer customer)
         {
-            return new List<Customer>
+            customer.Id = GetLastInsertedCustomerId() + 1;
+
+            customer.MembershipType = new MembershipType
             {
-                CreateCustomer(1, "Seleni", "Ferrari", MockMemberShipTypes.PayAsYouGo),
-                CreateCustomer(2, "Laia", "Aguayo", MockMemberShipTypes.Monthly),
+                Id = customer.MemberShipTypeId,
+                Name = _membershipTypeRepository.GetMembershipType(customer.MemberShipTypeId).Name
             };
+
+            _customersList.Add(customer);
+        }
+
+        private int GetLastInsertedCustomerId()
+        {
+            return _customersList[_customersList.Count - 1].Id;
+        }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            var customerInMemory = _customersList[customer.Id];
+
+            customerInMemory.FirstName = customer.FirstName;
+            customerInMemory.LastName = customer.LastName;
+            customerInMemory.Birthdate = customer.Birthdate;
+            customerInMemory.MemberShipTypeId = customer.MemberShipTypeId;
+            customerInMemory.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
         }
     }
 }

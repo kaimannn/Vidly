@@ -46,5 +46,15 @@ namespace Vidly.Web.Mocks.Repositories
                 CreateMovie(3, "Interestellar", 10, MockGenres.ScienceFiction)
             };
         }
+
+        public void AddMovie(Movie movie)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateMovie(Movie movie)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

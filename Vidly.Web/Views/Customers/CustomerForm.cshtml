@@ -1,0 +1,44 @@
+﻿@model CustomerFormViewModel
+@{
+    ViewData["Title"] = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Customer == null)
+{
+    <h2>New Customer</h2>
+}
+else
+{
+    <h2>Edit Customer</h2>
+}
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.FirstName)
+        @Html.TextBoxFor(c => c.Customer.FirstName, new { @class = "form-control", @style="width:400px" })
+        @Html.ValidationMessageFor(c => c.Customer.FirstName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.LastName)
+        @Html.TextBoxFor(c => c.Customer.LastName, new { @class = "form-control", @style = "width:400px" })
+        @Html.ValidationMessageFor(c => c.Customer.LastName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.Birthdate)
+        @Html.TextBoxFor(c => c.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control", @style = "width:400px" })
+        @Html.ValidationMessageFor(c => c.Customer.Birthdate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.MemberShipTypeId)
+        @Html.DropDownListFor(c => c.Customer.MemberShipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control", @style = "width:400px" })
+        @Html.ValidationMessageFor(c => c.Customer.MemberShipTypeId)
+    </div>
+    <div class="form-group">
+        @Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsletter, new { @class = "form-check" }) Subscribed to Newsletter?
+    </div>
+    @Html.HiddenFor(c => c.Customer.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
+

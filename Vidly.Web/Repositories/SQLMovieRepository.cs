@@ -10,6 +10,8 @@ namespace Vidly.Web.Repositories
     {
         IEnumerable<Movie> GetAllMovies();
         Movie GetMovie(int movieId);
+        void AddMovie(Movie movie);
+        void UpdateMovie(Movie movie);
     }
 
     public class SQLMovieRepository : IMovieRepository
@@ -29,6 +31,26 @@ namespace Vidly.Web.Repositories
         public IEnumerable<Movie> GetAllMovies()
         {
             return _context.Movies.Include(m => m.Genre).ToList();
+        }
+
+        public void AddMovie(Movie movie)
+        {
+            _context.Add(movie);
+            _context.SaveChanges();
+        }
+
+        public void UpdateMovie(Movie movie)
+        {
+            var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
+
+            movieInDb.Name = movie.Name;
+            movieInDb.NumInStock = movie.NumInStock;
+            movieInDb.ReleaseDate = movie.ReleaseDate;
+            movieInDb.DateAdded = movie.DateAdded;
+            movieInDb.GenreId = movie.GenreId;
+
+            _context.SaveChanges();
+
         }
     }
 }

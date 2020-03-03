@@ -26,9 +26,14 @@ namespace Vidly.Web
             services.AddDbContextPool<ApplicationDbContext>(options =>
                 options.UseSqlServer(_config.GetConnectionString("VidlyDBConnection")));
 
-            services.AddScoped<ICustomerRepository, MockCustomerRepository>();
-            services.AddScoped<IMovieRepository, MockMovieRepository>();
-            services.AddScoped<IMembershipTypeRepository, MockMembershipTypeRepository>();
+            //services.AddSingleton<ICustomerRepository, MockCustomerRepository>();
+            //services.AddSingleton<IMembershipTypeRepository, MockMembershipTypeRepository>();
+            //services.AddSingleton<IMovieRepository, MockMovieRepository>();
+
+            services.AddScoped<ICustomerRepository, SQLCustomerRepository>();
+            services.AddScoped<IMovieRepository, SQLMovieRepository>();
+            services.AddScoped<IMembershipTypeRepository, SQLMembershipTypeRepository>();
+            services.AddScoped<IGenreRepository, SQLGenreRepository>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -63,7 +68,7 @@ namespace Vidly.Web
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Customers}/{action=New}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
