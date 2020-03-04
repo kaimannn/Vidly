@@ -13,5 +13,8 @@ namespace Vidly.Web.Models
         public short SignUpFee { get; set; }
         public byte DurationInMonths { get; set; }
         public byte DiscountRate { get; set; }
+
+        public const byte Unknown = 0;
+        public const byte PayAsYouGo = 1;
     }
 }

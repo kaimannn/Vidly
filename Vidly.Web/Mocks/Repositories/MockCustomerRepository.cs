@@ -45,7 +45,7 @@ namespace Vidly.Web.Mocks.Repositories
                 FirstName = customerFirstName,
                 LastName = customerLastName,
                 Birthdate = DateTime.Now,
-                MemberShipTypeId = (byte)membershipType.GetHashCode(),
+                MembershipTypeId = (byte)membershipType.GetHashCode(),
                 MembershipType = new MembershipType
                 {
                     Id = (byte)membershipType.GetHashCode(),
@@ -61,8 +61,8 @@ namespace Vidly.Web.Mocks.Repositories
 
             customer.MembershipType = new MembershipType
             {
-                Id = customer.MemberShipTypeId,
-                Name = _membershipTypeRepository.GetMembershipType(customer.MemberShipTypeId).Name
+                Id = customer.MembershipTypeId,
+                Name = _membershipTypeRepository.GetMembershipType(customer.MembershipTypeId).Name
             };
 
             _customersList.Add(customer);
@@ -80,7 +80,7 @@ namespace Vidly.Web.Mocks.Repositories
             customerInMemory.FirstName = customer.FirstName;
             customerInMemory.LastName = customer.LastName;
             customerInMemory.Birthdate = customer.Birthdate;
-            customerInMemory.MemberShipTypeId = customer.MemberShipTypeId;
+            customerInMemory.MembershipTypeId = customer.MembershipTypeId;            
             customerInMemory.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
         }
     }

@@ -21,8 +21,8 @@ namespace Vidly.Web.Models
 
         public MembershipType MembershipType { get; set; }
 
-        [Display(Name = "MemberShip Type")]
-        public byte MemberShipTypeId { get; set; }
+        [Display(Name = "MemberShip Type")]        
+        public byte MembershipTypeId { get; set; }
 
         [Display(Name = "Date Of Birth")]
         [Min18YearsIfAMember]

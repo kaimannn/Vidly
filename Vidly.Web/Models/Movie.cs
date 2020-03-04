@@ -12,6 +12,7 @@ namespace Vidly.Web.Models
         public string Name { get; set; }
 
         [Display(Name = "Number in Stock")]
+        [Range(1, 20, ErrorMessage = "The field Number in Stock must be between 1 and 20.")]
         public int NumInStock { get; set; }
 
         [Required]

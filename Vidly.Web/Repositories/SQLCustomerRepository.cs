@@ -46,7 +46,7 @@ namespace Vidly.Web.Repositories
             customerInDb.FirstName = customer.FirstName;
             customerInDb.LastName = customer.LastName;
             customerInDb.Birthdate = customer.Birthdate;
-            customerInDb.MemberShipTypeId = customer.MemberShipTypeId;
+            customerInDb.MembershipTypeId = customer.MembershipTypeId;
             customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
 
             _context.SaveChanges();
